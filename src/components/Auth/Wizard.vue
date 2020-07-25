@@ -223,10 +223,10 @@ export default {
         try {
           await new Promise(resolve => {
             setTimeout(() => {
-              this.timerInterval = setInterval(() => this.timePassed++, 1000)
               resolve(3333)
             }, 300)
           }).then(resolve => {
+            this.timerInterval = setInterval(() => this.timePassed++, 1000)
             this.rightCode = resolve
             this.canNewSms = false
           })
