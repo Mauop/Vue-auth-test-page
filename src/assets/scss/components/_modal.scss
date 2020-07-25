@@ -1,0 +1,267 @@
+@import "../functions";
+
+.modal__mask {
+  position: fixed;
+  z-index: 9998;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(249, 250, 253, 0.93);
+  display: table;
+}
+
+.modal__wrapper {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.modal {
+  position: relative;
+  margin: 0px auto;
+  height: 100vh;
+  padding: 52px 15px;
+  transition: all 0.3s ease;
+  font-family: "San Francisco Pro";
+  background: #ffffff;
+  color: #242424;
+  box-shadow: 0px 7px 70px rgba(0, 50, 123, 0.1);
+  @media only screen and (min-width: 640px) {
+    padding: 55px 48px;
+    width: 520px;
+    height: 419px;
+  }
+
+  .modal__cont {
+    margin: 0 auto;
+    max-width: 424px;
+  }
+
+  &__close__icon {
+    position: absolute;
+    right: 17px;
+    top: 15px;
+    cursor: pointer;
+    @media only screen and (min-width: 640px) {
+      right: 24px;
+      top: 26px;
+    }
+  }
+
+  &__header {
+    width: 260px;
+    height: 20px;
+    font-weight: 600;
+    font-size: px(22);
+    line-height: px(20);
+    text-align: left;
+    @media only screen and (min-width: 640px) {
+      font-size: px(25);
+    }
+    
+    &__header__success {
+      text-align: center;
+    }
+  }
+
+  &__body__sms {
+    height: 184px;
+    margin: 38px auto 0;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    max-width: 412px;
+    position: relative;
+    @media only screen and (min-width: 640px) {
+      margin: 54px 0 0;
+      height: 191px;
+    }
+
+    label {
+      height: px(20);
+      font-size: px(14);
+      line-height: px(20);
+      @media only screen and (min-width: 640px) {
+        font-size: px(20);
+      }
+    }
+
+    .edit {
+      margin-top: 9px;
+      color: #2f80f3;
+      cursor: pointer;
+      font-size: px(14);
+      line-height: px(20);
+      @media only screen and (min-width: 640px) {
+        font-size: px(20);
+        margin-top: 10px;
+      }
+    }
+
+    .code {
+      margin-top: 29px;
+      @media only screen and (min-width: 640px) {
+        margin-top: 35px;
+      }
+      input {
+        width: 65px;
+        height: 65px;
+        border: 1px solid rgba(47, 128, 243, 0.32);
+        box-sizing: border-box;
+        font-size: px(30);
+        line-height: px(20);
+        text-align: center;
+        @media only screen and (min-width: 640px) {
+          font-size: px(40);
+          line-height: px(20);
+          width: 90px;
+          height: 80px;
+        }
+      }
+    }
+
+    .error {
+      margin-top: 6px;
+      height: 35px;
+      font-size: px(16);
+      line-height: px(17);
+      color: #db5454;
+      @media only screen and (min-width: 640px) {
+        line-height: px(20);
+        height: 20px;
+      }
+    }
+  }
+
+  &__footer__sms {
+    margin-top: 25px;
+    height: 20px;
+    font-size: px(16);
+    line-height: px(20);
+    color: #788aa4;
+    @media only screen and (min-width: 640px) {
+      font-size: px(20);
+      margin-top: 23px;
+    }
+    .send__new {
+      cursor: pointer;
+    }
+  }
+
+  &__body__phone {
+    height: 210px;
+    margin-top: 38px;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    max-width: 100%;
+    position: relative;
+    @media only screen and (min-width: 640px) {
+      max-width: 412px;
+      height: 196px;
+    }
+
+    label {
+      height: 20px;
+      font-size: px(16);
+      line-height: px(20);
+      color: #404040;
+      margin-bottom: 14px;
+      @media only screen and (min-width: 640px) {
+        font-size: px(18);
+      }
+    }
+
+    input {
+      width: 100%;
+      height: 65px;
+      border: 1px solid #dedede;
+      padding: 0;
+      padding-left: 27px;
+      font-weight: 500;
+      font-size: px(18);
+      line-height: px(20);
+      color: #626262;
+      margin-bottom: 10px;
+      @media only screen and (min-width: 640px) {
+        line-height: px(21);
+        width: 412px;
+      }
+    }
+
+    button {
+      width: 100%;
+      height: 65px;
+      border: 0;
+      padding: 0;
+      background-color: #2f80f3;
+      font-size: px(16);
+      line-height: px(20);
+      text-align: center;
+      color: #ffffff;
+      cursor: pointer;
+      @media only screen and (min-width: 640px) {
+        width: 412px;
+        font-size: px(20);
+      }
+    }
+
+    button.disabled {
+      cursor: not-allowed;
+      background-color: #dce4ee;
+    }
+
+    .error {
+      height: 20px;
+      font-size: px(16);
+      line-height: px(16);
+      color: #db5454;
+      margin-top: 4px;
+      @media only screen and (min-width: 640px) {
+        line-height: px(20);
+        margin-top: 2px;
+      }
+    }
+  }
+  
+  &__footer__phone {
+    height: 40px;
+    font-size: px(14);
+    line-height: px(20);
+    margin-top: 14px;
+    text-align: left;
+    @media only screen and (min-width: 640px) {
+      margin-top:16px;
+    }
+    a {
+      color: #404040;
+      text-decoration: underline;
+    }
+  }
+  
+}
+
+
+/*
+ * Transitions
+ */
+
+.modal-enter-active, .modal-leave-to, .modal-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.modal-enter, .modal-leave-to {
+  opacity: 0;
+}
+
+.modal-enter-active .modal {
+  -webkit-transform: scale(0.8);
+  transform: scale(0.8);
+}
+
+.modal-enter .modal,
+.modal-leave-active .modal {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+  
+}

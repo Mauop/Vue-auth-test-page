@@ -1,0 +1,192 @@
+@import "../functions";
+
+.head__screen {
+  color: #242424;
+  font-family: 'San Francisco Pro';
+  text-align: left;
+  // height: calc(100vh - 160px);
+  @media only screen and (min-width: 640px) {
+    height: unset;
+  }
+
+  .head__img_bg {
+    background: 
+    linear-gradient(284.16deg, #e6eaed 1.89%, rgba(230, 234, 237, 0) 6.6%),
+    linear-gradient(104.55deg, #e6eaed 10.07%, rgba(230, 234, 237, 0) 51.95%),
+    linear-gradient(248.99deg, #e6eaed 6.09%, rgba(230, 234, 237, 0) 20.06%),
+    url('~../../src/assets/main_screen_bg.png');
+    background-position-x: 66%;
+    background-repeat: no-repeat;
+    background-size: 264%;
+
+    @media only screen and (min-width: 360px) {
+      background-size: cover;
+    }
+    
+    @media only screen and (min-width: 1024px) {
+      background-position-x: 160%;
+      background-size: 83%;
+    }
+
+    @media only screen and (min-width: 1440px) {
+      background-position-x: 82%;
+      background-size: 60%;
+    }
+    @media only screen and (min-width: 1690px) {
+      background-position-x: 76%;
+      background-size: 53%;
+    }
+  }
+
+  .middle {
+    // height: 492px;
+    height: calc(100vh - 255px);
+    background-color: #e6eaed;
+    @media only screen and (min-width: 1440px) {
+      height: 578px;
+    }
+
+    .cta__col {
+      padding: 0;
+      @media only screen and (min-width: 1440px) {
+        height: 245px;
+        // padding: 16px;
+      }
+            
+      .main__header {
+        font-family: 'San Francisco Pro Bold';
+        font-size: px(25);
+        line-height: px(36);
+        height: 144px;
+        margin-bottom: 31px;
+        @media only screen and (min-width: 640px) {
+          height: 96px;
+          font-size: px(25);
+          line-height: px(36);
+          margin-bottom: 37px;
+        }
+        @media only screen and (min-width: 1024px) {
+          font-size: px(33);
+          line-height: px(48);
+          margin-bottom: 37px;
+        }
+        @media only screen and (min-width: 1440px) {
+          height: 128px;
+          font-size: px(44);
+          line-height: px(64);
+          margin-bottom: 49px;
+        }
+      }
+    }
+
+    .form {
+      text-align: center;
+      @media only screen and (min-width: 640px) {
+        text-align: left;
+      }
+      input {
+        width: 100%;
+        height: 68px;
+        border: 1px solid #dedede;
+        padding: 0;
+        font-weight: 500;
+        font-size: px(18);
+        line-height: px(21);
+        color: #626262;
+        margin-bottom: 12px;
+        padding-left: 27px;
+        @media only screen and (min-width: 640px) {
+          width: 390px;
+          margin-bottom: 0;
+        }
+        @media only screen and (min-width: 1440px) {
+        }
+      }
+  
+      button {
+        width: 100%;
+        height: 68px;
+        border: 0;
+        padding: 0;
+        background-color: #2f80f3;
+        font-size: px(18);
+        line-height: px(21);
+        text-align: center;
+        color: #ffffff;
+        cursor: pointer;
+        @media only screen and (min-width: 640px) {
+          width: 283px;
+          margin-left: 4px;
+        }
+        @media only screen and (min-width: 1440px) {
+          margin-left: -19px;
+        }
+      }
+
+    }
+  }
+
+  .footer {
+    background-color: #2f80f3;
+    height: 94px;
+    .container {
+      padding: 0px 16px;
+      @media only screen and (min-width: 1440px) {
+        padding: 0;
+      }
+    }
+    &__row {
+      margin-left: -8px;
+    }
+    @media only screen and (min-width: 640px) {
+      height: 116px;
+
+      &__row {
+        margin-left: 0px;
+      }
+    }
+    .f__icon {
+      padding: 0;
+      @media only screen and (min-width: 1440px) {
+      }
+      img {
+        height: 35px;
+        width: 35px;
+        @media only screen and (min-width: 640px) {
+          height: 45px;
+          width: 45px;
+        }
+        @media only screen and (min-width: 1440px) {
+          height: 57px;
+          width: 57px;
+        }
+      }
+    }
+    
+    .text {
+      margin: 0;
+      font-size: px(14);
+      line-height: px(19);
+      font-weight: 500;
+      color: #ffffff;
+      @media only screen and (min-width: 640px) {
+        font-size: px(16);
+        line-height: px(17);
+        margin: 9px 0 0 9px;
+      }
+      @media only screen and (min-width: 1440px) {
+        font-size: px(20);
+        line-height: px(24);
+        font-weight: 600;
+        margin: 16px 0 0 3px;
+      }
+    }
+
+    .mob__main {
+      max-width: 168px;
+      @media only screen and (min-width: 640px) {
+        max-width: 100%;
+      }
+    }
+  }
+}
