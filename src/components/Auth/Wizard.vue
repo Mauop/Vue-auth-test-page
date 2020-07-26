@@ -292,7 +292,7 @@ export default {
     },
 
     keyDown(e) {
-      if (e.keyCode === 38 || e.keyCode === 40 || e.keyCode === 46) {
+      if (e.keyCode === 8 || e.keyCode === 38 || e.keyCode === 40 || e.keyCode === 46) {
         e.preventDefault()
       }
     },
