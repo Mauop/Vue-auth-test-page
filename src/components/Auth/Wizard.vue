@@ -217,7 +217,9 @@ export default {
       }, 1500)
     },
 
-    /* Fake API sms code fetching */
+    /* Fake API */
+
+    // fetch fake code and init timer
     async fetchSmsCode() {
       if (!this.timerInterval) {
         try {
@@ -236,6 +238,39 @@ export default {
       }
     },
 
+    // check code status #2 (default)
+    async checkSmsCodeStatus() {
+      let codeStatus = false
+
+      try {
+        await new Promise(resolve => {
+          setTimeout(() => {
+            if (parseInt(this.smsCodeFull) === 3333)
+              resolve(JSON.parse('{"rightcode":"true"}'))
+            else {
+              resolve(JSON.parse('{"rightcode":"false"}'))
+            }
+          }, 300)
+        }).then(resolve => {
+          codeStatus = resolve.rightcode
+        })
+        return codeStatus
+      } catch (e) {
+        console.log(e)
+      }
+    },
+
+    async checkSmsCode() {
+      const status = await this.checkSmsCodeStatus()
+
+      if (status === 'true') {
+        this.isError = false
+        this.onVerifed()
+      } else {
+        this.isError = true
+      }
+    },
+
     getNewSmsCode() {
       this.fetchSmsCode()
     },
@@ -246,6 +281,8 @@ export default {
       this.timePassed = 0
     },
 
+    /* Fake API */
+
     /* SMS CODE INPUTS EVENTS */
 
     preventNaNtype(event) {
@@ -255,7 +292,7 @@ export default {
     },
 
     keyDown(e) {
-      if (e.keyCode === 8 || e.keyCode === 38 || e.keyCode === 40 || e.keyCode === 46) {
+      if (e.keyCode === 38 || e.keyCode === 40 || e.keyCode === 46) {
         e.preventDefault()
       }
     },
@@ -331,13 +368,7 @@ export default {
     },
     smsCodeFull(val) {
       if (val.length === 4) {
-        if (this.rightCode !== parseInt(val)) {
-          this.isError = true
-        }
-        if (this.rightCode === parseInt(val)) {
-          this.isError = false
-          this.onVerifed()
-        }
+        this.checkSmsCode()
       }
     }
   }
