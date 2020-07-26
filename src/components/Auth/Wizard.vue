@@ -135,7 +135,7 @@ export default {
         { count: 'fourth', value: '' }
       ],
       rightCode: null,
-      timeToResendSms: 60,
+      timeToResend: null,
       canNewSms: false,
       timePassed: 0,
       timerInterval: null
@@ -158,7 +158,7 @@ export default {
       return `${minutes}:${seconds}`
     },
     timeLeft() {
-      return this.timeToResendSms - this.timePassed
+      return this.timeToResend - this.timePassed
     }
   },
   mounted() {
@@ -197,7 +197,7 @@ export default {
     async goToCode() {
       this.authModal = false
       this.smsModal = true
-      await this.fetchSmsCode()
+      await this.fetchCode()
       this.$refs.code_1[0].focus()
     },
     onPhoneInput() {
@@ -219,51 +219,35 @@ export default {
 
     /* Fake API */
 
-    // fetch fake code and init timer
-    async fetchSmsCode() {
+    async fetchCode() {
       if (!this.timerInterval) {
         try {
-          await new Promise(resolve => {
-            setTimeout(() => {
-              resolve(3333)
-            }, 300)
-          }).then(resolve => {
-            this.timerInterval = setInterval(() => this.timePassed++, 1000)
-            this.rightCode = resolve
-            this.canNewSms = false
-          })
+          await fetch(
+            'https://my-json-server.typicode.com/mauop/vue-auth-test-page/blob/master/code'
+          )
+            .then(res => {
+              return res.json()
+            })
+            .then(data => {
+              if (!this.timerInterval) {
+                this.timerInterval = setInterval(() => this.timePassed++, 1000)
+              }
+              this.rightCode = data.value
+              this.timeToResend = parseInt(data.timeToResend) || 60
+              this.canNewSms = false
+            })
         } catch (e) {
           console.log(e)
         }
       }
     },
 
-    // check code status #2 (default)
-    async checkSmsCodeStatus() {
-      let codeStatus = false
-
-      try {
-        await new Promise(resolve => {
-          setTimeout(() => {
-            if (parseInt(this.smsCodeFull) === 3333)
-              resolve(JSON.parse('{"rightcode":"true"}'))
-            else {
-              resolve(JSON.parse('{"rightcode":"false"}'))
-            }
-          }, 300)
-        }).then(resolve => {
-          codeStatus = resolve.rightcode
-        })
-        return codeStatus
-      } catch (e) {
-        console.log(e)
-      }
-    },
-
     async checkSmsCode() {
-      const status = await this.checkSmsCodeStatus()
+      if (!this.rightCode) {
+        await this.fetchCode()
+      }
 
-      if (status === 'true') {
+      if (this.rightCode === this.smsCodeFull) {
         this.isError = false
         this.onVerifed()
       } else {
@@ -272,7 +256,7 @@ export default {
     },
 
     getNewSmsCode() {
-      this.fetchSmsCode()
+      this.fetchCode()
     },
 
     onTimesUp() {
@@ -297,12 +281,12 @@ export default {
       }
     },
 
-    keyUp(event) {
-      const curTabIndex = parseInt(event.target.tabIndex)
+    keyUp(e) {
+      const curTabIndex = parseInt(e.target.tabIndex)
       const prevTabIndex = curTabIndex - 1 || 1
       const nextTabIndex = curTabIndex + 1 || 4
 
-      switch (event.keyCode) {
+      switch (e.keyCode) {
         case 37: //arrow left
           if (curTabIndex > 1) {
             this.$refs['code_' + prevTabIndex][0].focus()
@@ -314,18 +298,18 @@ export default {
           }
           break
         case 46: //delete
-          if (event.target.value.length === 0 && curTabIndex > 1) {
+          if (e.target.value.length === 0 && curTabIndex > 1) {
             this.codeNumbers[prevTabIndex - 1].value = ''
             this.$refs['code_' + prevTabIndex][0].focus()
-          } else if (event.target.value.length !== 0) {
+          } else if (e.target.value.length !== 0) {
             this.codeNumbers[curTabIndex - 1].value = ''
           }
           break
         case 8: //backspace
-          if (event.target.value.length === 0 && curTabIndex > 1) {
+          if (e.target.value.length === 0 && curTabIndex > 1) {
             this.$refs['code_' + prevTabIndex][0].focus()
             this.codeNumbers[prevTabIndex - 1].value = ''
-          } else if (event.target.value.length !== 0) {
+          } else if (e.target.value.length !== 0) {
             this.codeNumbers[curTabIndex - 1].value = ''
           }
           break
@@ -334,9 +318,9 @@ export default {
       }
     },
 
-    codeFocus(event) {
-      const len = event.target.value.length
-      const curTabIndex = parseInt(event.target.tabIndex)
+    codeFocus(e) {
+      const len = e.target.value.length
+      const curTabIndex = parseInt(e.target.tabIndex)
       const nextTabIndex = curTabIndex + 1
       const prevTabIndex = curTabIndex - 1 || 1
       if (len === 1 && curTabIndex < 4) {
@@ -350,7 +334,7 @@ export default {
       }
     }
 
-    /* SMS CODE INPUTS EVENTS */
+    /* SMS CODE INPUTS EVENT S */
   },
   watch: {
     phone(val) {
